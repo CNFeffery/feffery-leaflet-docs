@@ -1,5 +1,4 @@
 import re
-import uuid
 from dash import html
 import feffery_antd_components as fac
 import feffery_utils_components as fuc
@@ -157,7 +156,96 @@ docs_content = fuc.FefferySplit(
                                 language='python',
                                 codeStyle='coy-without-shadows',
                                 codeString='''
+from dash import html
+import feffery_antd_components as fac
 import feffery_leaflet_components as flc
+
+html.Div(
+    [
+        flc.LeafletMap(
+            [
+                flc.LeafletTileLayer(
+                    id='tile-layer'
+                )
+            ],
+            style={
+                'height': '100%'
+            }
+        ),
+
+        fac.AntdSelect(
+            id='tile-layer-select',
+            options=[
+                {
+                    'label': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    'value': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                },
+                {
+                    'label': 'http://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+                    'value': 'http://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}'
+                },
+                {
+                    'label': 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                    'value': 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+                },
+                {
+                    'label': 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.jpg',
+                    'value': 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.jpg'
+                },
+                {
+                    'label': 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+                    'value': 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+                },
+                {
+                    'label': 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png',
+                    'value': 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png'
+                },
+                {
+                    'label': 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
+                    'value': 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png'
+                },
+                {
+                    'label': 'https://stamen-tiles-a.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}.png',
+                    'value': 'https://stamen-tiles-a.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}.png'
+                },
+                {
+                    'label': 'https://d.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+                    'value': 'https://d.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png'
+                },
+                {
+                    'label': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                    'value': 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                },
+                {
+                    'label': 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
+                    'value': 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
+                }
+            ],
+            allowClear=False,
+            defaultValue='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            style={
+                'position': 'absolute',
+                'width': 'calc(100% - 300px)',
+                'right': '10px',
+                'top': '10px',
+                'zIndex': 999
+            }
+        )
+    ],
+    style={
+        'height': '100%',
+        'position': 'relative'
+    }
+)
+
+...
+
+@app.callback(
+    Output('tile-layer', 'url'),
+    Input('tile-layer-select', 'value')
+)
+def tile_switch(value):
+    return value
 ''')
                         ],
                         id='demo-code-container',

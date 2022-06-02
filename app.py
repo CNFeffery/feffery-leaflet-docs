@@ -146,7 +146,7 @@ app.layout = fuc.FefferyTopProgress(
         ]
     ),
     listenPropsMode='include',
-    excludeProps=[
+    includeProps=[
         'docs-content.children'
     ],
     minimum=0.33,
