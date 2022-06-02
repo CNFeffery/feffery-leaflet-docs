@@ -1,0 +1,6 @@
+dash==2.4.1
+feffery_antd_components==0.1.11
+feffery_leaflet_components==0.0.1a1
+feffery_markdown_components==0.0.1
+feffery_utils_components==0.0.12
+requests==2.27.1
