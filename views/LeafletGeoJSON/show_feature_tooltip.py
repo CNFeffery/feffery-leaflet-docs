@@ -21,7 +21,6 @@ docs_content = fuc.FefferySplit(
                                         .get('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
                                         .json()
                                 ),
-                                clickFeatureZoom=True,
                                 showTooltip=True,
                                 featureTooltipField='name'
                             )
@@ -116,7 +115,6 @@ flc.LeafletMap(
                     .get('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
                     .json()
             ),
-            clickFeatureZoom=True,
             showTooltip=True,
             featureTooltipField='name'
         )
