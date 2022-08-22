@@ -67,14 +67,16 @@ docs_content = fuc.FefferySplit(
                                         fmc.FefferyMarkdown(
                                             markdownStr=parameter
                                         ),
-                                        title=re.findall('\*\*(.*?)：\*\*', parameter)[0],
+                                        title=re.findall(
+                                            '\*\*(.*?)：\*\*', parameter)[0],
                                         key=i
                                     )
                                     for i, parameter in enumerate(
-                                    open('documents/LeafletCircle.md', encoding='utf-8')
+                                        open('documents/LeafletCircle.md',
+                                             encoding='utf-8')
                                         .read()
                                         .split('---')
-                                )
+                                    )
                                 ],
                                 accordion=False
                             )
@@ -100,10 +102,8 @@ docs_content = fuc.FefferySplit(
                                 target='demo-code-container'
                             ),
                             fuc.FefferySyntaxHighlighter(
-                                showLineNumbers=True,
-                                showInlineLineNumbers=True,
                                 language='python',
-                                codeStyle='coy-without-shadows',
+                                codeTheme='coy-without-shadows',
                                 codeString='''
 import random
 import feffery_leaflet_components as flc

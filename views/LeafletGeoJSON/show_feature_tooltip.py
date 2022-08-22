@@ -97,10 +97,8 @@ docs_content = fuc.FefferySplit(
                                 target='demo-code-container'
                             ),
                             fuc.FefferySyntaxHighlighter(
-                                showLineNumbers=True,
-                                showInlineLineNumbers=True,
-                                language='python',
-                                codeStyle='coy-without-shadows',
+language='python',
+                                codeTheme='coy-without-shadows',
                                 codeString='''
 import requests
 import feffery_leaflet_components as flc

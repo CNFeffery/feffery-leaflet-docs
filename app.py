@@ -12,6 +12,20 @@ from config import Config
 app.layout = fuc.FefferyTopProgress(
     html.Div(
         [
+            fac.AntdAlert(
+                message='本项目当前处于早期测试阶段，API可能会经常变更，且文档内容远远落后于最新开发版本的功能内容，请暂时不要在生产项目中重度使用！',
+                closable=True,
+                showIcon=True,
+                type='warning',
+                messageRenderMode='marquee',
+                style={
+                    'position': 'fixed',
+                    'zIndex': 99999,
+                    'top': 64,
+                    'width': '100vw'
+                }
+            ),
+
             # 注入url监听
             dcc.Location(id='url'),
 

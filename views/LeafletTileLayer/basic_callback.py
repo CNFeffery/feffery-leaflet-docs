@@ -151,10 +151,8 @@ docs_content = fuc.FefferySplit(
                                 target='demo-code-container'
                             ),
                             fuc.FefferySyntaxHighlighter(
-                                showLineNumbers=True,
-                                showInlineLineNumbers=True,
-                                language='python',
-                                codeStyle='coy-without-shadows',
+language='python',
+                                codeTheme='coy-without-shadows',
                                 codeString='''
 from dash import html
 import feffery_antd_components as fac
