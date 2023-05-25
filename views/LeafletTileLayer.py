@@ -97,7 +97,7 @@ docs_content = html.Div(
                                         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png'
                                     ]
                                 ],
-                                defaultValue='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+                                defaultValue='http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}',
                                 allowClear=False,
                                 style={
                                     'width': '100%'
