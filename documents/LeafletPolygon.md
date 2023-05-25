@@ -1,31 +1,49 @@
-**id：** *str*型
+**id：** *string*型
 
-用于定义组件的唯一识别`id`信息
+　　用于设置*当前组件的唯一id信息*
 
----
+**key：** *string*型
 
-**positions：** *list*型
+　　对当前组件的`key`值进行更新，可实现强制重绘当前组件的效果
 
-用于定义当前多边形实例的矢量信息，可细分为下列两种情况：
+**children：** *组件型*
 
-- **单多边形：** `list[dict]`型，结构为字典构成的列表，其中每个字典具有`lng`、`lat`键值对参数用于按顺序定义多边形上对应节点坐标信息
-- **有孔单多边形：** `list[list[dict]]`型，结构为若干个**单多边形**结构（仅有一个时等价于**单多边形**）所构成的列表，其中第一个**单多边形**结构表示当前多边形实例的外轮廓，剩余**单多边形**结构代表当前多边形实例内部各孔洞内轮廓线
-- **多多边形：** `list[list[list[dict]]]`型，结构为若干个**有孔单多边形**结构所构成的列表
+　　用于传入*嵌套的tooltip、popup等额外元素*
 
----
+**positions：** *list*型，必填
+
+　　用于*设置当前多边形对应的坐标串数组数据*，数组中每个元素为*dict*型，可用的键值对参数有：
+
+- **lng：** *int*或*float*型，用于*设置当前坐标点的经度*
+- **lat：** *int*或*float*型，用于*设置当前坐标点的纬度*
+
+　　多边形矢量坐标串的定义情况较多，请结合当前文档页具体示例学习
 
 **pathOptions：** *dict*型
 
-用于为当前折线实例配置样式相关参数，可用的键值对参数有：
+　　用于*配置当前矢量的样式*，可用的键值对参数有：
 
-- **stroke：** *bool*型，默认为`True`，用于设置是否绘制轮廓线
-- **color：** *str*型，默认为`'#3388ff'`，用于设置轮廓线颜色
-- **weight：** *int*型，默认为`3`，用于设置轮廓线像素宽度
-- **opacity：** *float*型，默认为`1`，用于设置轮廓线透明度
-- **lineCap：** *str*型，默认为`'round'`，对应`css`中的`line-cap`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linecap)
-- **lineJoin：** *str*型，默认为`'round'`，对应`css`中的`line-join`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linejoin)
-- **dashArray：** *str*型，默认为`None`，对应`css`中的`dash-array`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)
-- **dashOffset：** *str*型，默认为`None`，对应`css`中的`dash-offset`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dashoffset)
-- **fill：** *bool*型，默认为`True`，用于设置是否对当前矢量进行填充
-- **fillColor：** *str*型，默认为`'#3388ff'`，用于设置当前矢量的填充色
-- **fillOpacity：** *str*型，默认为`0.2`，用于设置当前矢量的填充透明度
+- **stroke：** *bool*型，默认为`True`，用于*设置当前要素是否显示轮廓*
+- **color：** *string*型，默认为<font style="color: #3388ff;">#3388ff</font>，用于*设置当前要素的轮廓色*
+- **weight：** *int*或*float*型，默认为`3`，用于*设置当前要素的轮廓像素宽度*
+- **opacity：** *int*或*float*型，默认为`1`，用于*设置当前要素的轮廓透明度*
+- **lineCap：** *string*型，默认为`'round'`，用于*设置当前要素轮廓线的line-cap属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linecap)
+- **lineJoin：** *string*型，默认为`'round'`，用于*设置当前要素轮廓线的line-join属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linejoin)
+- **dashArray：** *string*型，用于*设置当前要素轮廓线的线型dash-array属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)
+- **dashOffset：** *string*型，用于*设置当前要素轮廓线的dash-offset属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dashoffset)
+- **fill：** *bool*型，默认为`True`，用于*设置当前要素是否显示填充*
+- **fillColor：** *string*型，默认为<font style="color: #3388ff;">#3388ff</font>，用于*设置当前要素的填充色*
+- **fillOpacity：** *int*或*float*型，默认为`0.2`，用于*设置当前要素的填充透明度*
+
+**editable：** *bool*型，默认为`False`
+
+　　用于*设置当前多边形是否可编辑*，需配合`LeafletMap`的地图编辑功能
+
+**nClicks：** *int*型，默认为`0`
+
+　　用于*监听当前多边形要素的累计被点击次数*
+
+**mouseOverCount：** *int*型，默认为`0`
+
+　　用于*监听当前多边形要素的累计鼠标移入次数*
+

@@ -1,27 +1,27 @@
-**id：** *str*型
+**id：** *string*型
 
-用于定义组件的唯一识别`id`信息
+　　用于设置*当前组件的唯一id信息*
 
----
+**key：** *string*型
 
-**url：** *str*型，默认为`'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'`
+　　对当前组件的`key`值进行更新，可实现强制重绘当前组件的效果
 
-用于为当前瓦片图层设置对应的地图服务源地址信息
+**url：** *string*型
 
----
+　　用于*设置当前瓦片底图的url地址*
 
-**attribution：** *str*型
+**attribution：** *string*型
 
-用于为当前瓦片图层设置额外`attribution`信息
+　　用于*设置当前瓦片底图的attribution信息*
 
----
+**opacity：** *int*或*float*型，默认为`1`
 
-**opacity：** *float*型，默认为`1`
-
-用于为当前瓦片图层设置透明度
-
----
+　　用于*设置当前瓦片底图的透明度*，取值应在0到1之间
 
 **zIndex：** *int*型
 
-用于为当前瓦片图层设置`z`轴层次
+　　用于*设置当前瓦片底图的z-index层级*
+
+**tileSize：** *int*型，默认为`256`
+
+　　用于*设置当前瓦片底图的图片像素边长*

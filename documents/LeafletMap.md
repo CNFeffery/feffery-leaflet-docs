@@ -1,135 +1,130 @@
-**id：** *str*型
+**id：** *string*型
 
-用于定义组件的唯一识别`id`信息
+　　用于设置*当前组件的唯一id信息*
 
----
+**key：** *string*型
 
-**children：** *list*型
-
-用于定义当前地图实例下属的单个或多个图层元素
-
----
-
-**className：** *str*型
-
-用于定义当前地图实例容器的`css`类名
-
----
+　　对当前组件的`key`值进行更新，可实现强制重绘当前组件的效果
 
 **style：** *dict*型
 
-用于定义当前地图实例容器的`css`属性键值对
+　　用于设置*当前组件的css样式*
 
----
+**className：** *string*型
 
-**center：** *dict*型
+　　用于设置*当前组件的css类名*
 
-用于为当前地图实例设置初始化中心坐标，可用的键值对参数有：
+**children：** *组件型*
 
-- **lng：** *int*或*float*型，默认为`0`，用于设置地图中心点经度
-- **lat：** *int*或*float*型，默认为`0`，用于设置地图中心点纬度
+　　用于传入*嵌套的其他地图子组件*
 
----
+**center：** *dict*型，默认为`{'lng': 0, 'lat': 0}`
 
-**zoom：** *int*或*float*型，默认为`1`
+　　用于*设置初始化时地图的中心经纬度坐标*，格式为`{'lng': 经度, 'lat': 纬度}`
 
-用于为当前地图实例设置初始化缩放级别
+**zoom：** *int*或*float*型，默认为`3`
 
----
+　　用于*设置初始化时地图的缩放级别*
 
 **doubleClickZoom：** *bool*型，默认为`True`
 
-用于设置是否允许双击地图进行放大
-
----
+　　用于*设置是否允许双击地图进行放大*
 
 **dragging：** *bool*型，默认为`True`
 
-用于设置是否允许拖拽挪动地图
-
----
+　　用于*设置是否允许鼠标拖拽移动地图*
 
 **closePopupOnClick：** *bool*型，默认为`True`
 
-用于设置是否允许用户鼠标点击地图空白处来关闭处于打开状态的**popup**卡片
+　　用于*设置是否允许通过点击地图空白处的方式关闭已展开的popup卡片*
 
----
+**minZoom：** *int*或*float*型，默认为`0`
 
-**minZoom：** *int*或*float*型
+　　用于*设置地图允许的缩放级别下限*
 
-用于设置地图缩放级别下限
+**maxZoom：** *int*或*float*型，默认为`18`
 
----
-
-**maxZoom：** *int*或*float*型
-
-用于设置地图缩放级别上限
-
----
+　　用于*设置地图允许的缩放级别上限*
 
 **zoomDelta：** *int*或*float*型，默认为`1`
 
-用于设置地图缩放级别变化的最小步长单位
-
----
+　　用于*设置地图层级缩放变化的最小单位*
 
 **zoomControl：** *bool*型，默认为`True`
 
-用于设置是否显示地图缩放控件
+　　用于*设置是否在地图上放置地图放缩控件*
 
----
+**scrollWheelZoom：** *bool*或*string*型，默认为`True`
 
-**scrollWheelZoom：** *bool*或*str*型，默认为`True`
+　　用于*设置是否允许通过鼠标滑轮控制地图缩放*，当设置为`'center'`时，无论鼠标位置在哪都会以地图中心为缩放中心
 
-用于设置鼠标滚轮缩放地图的行为，`True`代表允许滚轮缩放，`False`代表不允许滚轮缩放，`'center'`表示滚轮缩放时无视鼠标具体位置，强制以当前地图中心作为缩放的参考中心
+**wheelPxPerZoomLevel：** *int*型，默认为`60`
 
----
+　　用于*设置触发1单位zoomDelta变化对应的鼠标滑轮滚动像素偏移量*
 
-**wheelPxPerZoomLevel：** *int*或*float*型，默认为`60`
+**smoothWheelZoom：** *bool*或*string*型，默认为`False`
 
-用于设置当鼠标滚轮滚动多少像素后，会触发1单位的缩放行为
+　　用于*设置是否允许通过鼠标滑轮控制地图丝滑缩放*，当设置为`'center'`时，无论鼠标位置在哪都会以地图中心为丝滑缩放中心
 
----
+**maxBounds：** *dict*型
+
+　　用于*为当前地图设置允许移动的坐标范围*，可用的键值对参数有：
+
+- **minx：** *int*或*float*型，用于*设置坐标范围对应的经度下限*
+- **miny：** *int*或*float*型，用于*设置坐标范围对应的纬度下限*
+- **maxx：** *int*或*float*型，用于*设置坐标范围对应的经度上限*
+- **maxy：** *int*或*float*型，用于*设置坐标范围对应的纬度上限*
 
 **editToolbar：** *bool*型，默认为`False`
 
-用于设置是否显示编辑模式工具栏
-
----
+　　用于*设置是否开启地图编辑功能*，开启后会在地图上放置编辑工具栏
 
 **editToolbarControlsOptions：** *dict*型
 
-用于进一步配置编辑模式相关功能，可用的键值对参数有：
+　　用于*配置编辑工具栏相关参数*，可用的键值对参数有：
 
-- **position：** *str*型，默认为`'topleft'`，用于设置编辑模式工具栏在地图上的方位，而可选的有`'topleft'`、`'topright'`、`'bottomleft'`和`'bottomright'`
-- **drawMarker：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**添加标记**按钮
-- **drawCircleMarker：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**添加圆形标记**按钮
-- **drawPolyline：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**添加折线**按钮
-- **drawRectangle：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**添加矩形**按钮
-- **drawPolygon：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**添加多边形**按钮
-- **drawCircle：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**添加圆形**按钮
-- **drawText：** *bool*型，默认为`False`，用于设置是否在工具栏中显示**添加文字**按钮
-- **editMode：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**编辑要素**按钮
-- **dragMode：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**平移要素**按钮
-- **cutPolygon：** *bool*型，默认为`False`，用于设置是否在工具栏中显示**剪切要素**按钮
-- **removalMode：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**移除要素**按钮
-- **rotateMode：** *bool*型，默认为`True`，用于设置是否在工具栏中显示**旋转要素**按钮
-- **oneBlock：** *bool*型，默认为`False`，用于设置是否将所有工具栏按钮放置于同一个容器中
+- **position：** *string*型，默认为`'topleft'`，用于*设置编辑模式工具栏的方位*，可选的有`'topleft'`、`'topright'`、`'bottomleft'`、`'bottomright'`
+- **drawMarker：** *bool*型，默认为`True`，用于*设置是否开启“添加标记点”功能*
+- **drawCircleMarker：** *bool*型，默认为`True`，用于*设置是否开启”圆形标记点“绘制功能*
+- **drawPolyline：** *bool*型，默认为`True`，用于*设置是否开启”折线“绘制功能*
+- **drawRectangle：** *bool*型，默认为`True`，用于*设置是否开启”矩形“绘制功能*
+- **drawPolygon：** *bool*型，默认为`True`，用于*设置是否开启“多边形”绘制功能*
+- **drawCircle：** *bool*型，默认为`True`，用于*设置是否开启“圆形”绘制功能*
+- **drawText：** *bool*型，默认为`False`，用于*设置是否开启“添加文字”功能*
+- **editMode：** *bool*型，默认为`True`，用于*设置是否开启“编辑要素”功能*
+- **dragMode：** *bool*型，默认为`True`，用于*设置是否开启“拖拽要素”功能*
+- **cutPolygon：** *bool*型，默认为`False`，用于*设置是否开启“剪切要素”功能*
+- **removalMode：** *bool*型，默认为`True`，用于*设置是否开启“移除要素”功能*
+- **rotateMode：** *bool*型，默认为`True`，用于*设置是否开启“旋转要素”功能*
+- **oneBlock：** *bool*型，默认为`False`，用于*设置是否将编辑模式工具栏中的全部按钮置于一个容器内*
 
----
+**showMeasurements：** *bool*型，默认为`False`
 
-**showMeasurements：** *bool*型，默认为`True`
+　　用于*设置是否为编辑模式下绘制的要素添加长度、面积标注信息*
 
-用于设置是否为编辑模式下绘制出的矢量添加额外的长度、面积标注信息
+**maxDrawnShapes：** *int*型
 
----
+　　用于*设置编辑模式下最大允许绘制的要素数量*，超出此限制后每新绘制一个要素，都会导致最早绘制的要素被清除
 
-**maxDrawnShapes：** *int*型，默认为`None`
+**measureControl：** *bool*型，默认为`False`
 
-用于设置编辑模式下，地图上同时允许存在的要素最大数量，超出限制时，新绘制的要素会导致当前最早绘制的要素自动被移除
+　　用于*设置是否开启地图测量功能*，开启后会在地图上放置测量工具栏
 
----
+**measureControlOptions：** *dict*型
+
+　　用于*配置测量工具栏相关参数*，可用的键值对参数有：
+
+- **position：** *string*型，默认为`'topleft'`，用于*设置测量工具栏的方位*，可选的有`'topleft'`、`'topright'`、`'bottomleft'`、`'bottomright'`
+- **activeColor：** *string*型，默认为<font style="color: #f1c40f;">#f1c40f</font>，用于*设置测量工具绘制时的要素颜色*
+- **completedColor：** *string*型，默认为<font style="color: #e74c3c;">#e74c3c</font>，用于*设置测量工具绘制完成时的要素颜色*
+
+**viewAutoCorrection：** *bool*型，默认为`False`
+
+　　用于*设置是否为当前地图开启自动视角校正功能*，开启后可能会带来一些性能上的压力
 
 **_drawnShapes：** *list*型
 
-用于记录编辑模式下，地图上可见的所有已绘制矢量要素相关属性信息
+　　用于*监听编辑模式下当前已绘制要素矢量数据所构成的数组*
+
+
+

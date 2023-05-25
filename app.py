@@ -1,45 +1,160 @@
+import uuid
+import time
 import dash
-from dash import html, dcc
+from dash import dcc, html
+from urllib.parse import unquote
 import feffery_antd_components as fac
-import feffery_leaflet_components as flc
 import feffery_utils_components as fuc
-from dash.dependencies import Input, Output, State
+import feffery_leaflet_components as flc
+from dash.dependencies import Input, Output, State, ClientsideFunction
 
 import views
-from server import app, server
+from views import (
+    map_basic,
+    map_advanced
+)
 from config import Config
+from utils import generate_shortcut_panel_data
+from server import app, server
+
+# 侧边菜单自动滚动动作基础参数
+router_menu_scroll_params = dict(
+    scrollMode='target',
+    executeScroll=True,
+    offset=-200,
+    containerId='router-menu'
+)
 
 app.layout = fuc.FefferyTopProgress(
     html.Div(
         [
-            fac.AntdAlert(
-                message='本项目当前处于早期测试阶段，API可能会经常变更，且文档内容远远落后于最新开发版本的功能内容，请暂时不要在生产项目中重度使用！',
-                closable=True,
-                showIcon=True,
-                type='warning',
-                messageRenderMode='marquee',
+            # 注入url监听
+            dcc.Location(id='url'),
+
+            # 注入侧边菜单栏自动滚动至选中项动作挂载点
+            html.Div(id='side-menu-scroll-to-current-key'),
+
+            # 注入基于url中hash信息的页面锚点滚动效果
+            html.Div(id='page-anchor-scroll-to-while-page-initial'),
+
+            # 注入侧边参数说明栏展开像素宽度记忆
+            dcc.Store(
+                id='side-props-width',
+                storage_type='local'
+            ),
+
+            # 注入快捷搜索面板
+            fuc.FefferyShortcutPanel(
+                placeholder='输入你想要搜索的组件...',
+                data=generate_shortcut_panel_data(
+                    Config.menuItems
+                )
+            ),
+
+            # 注入快捷添加好友悬浮卡片
+            html.Div(
+                [
+                    fac.AntdSpace(
+                        [
+                            fac.AntdTooltip(
+                                fac.AntdButton(
+                                    fac.AntdIcon(icon='antd-bug'),
+                                    shape='circle',
+                                    href='https://github.com/CNFeffery/feffery-leaflet-components/issues',
+                                    target='_blank',
+                                    style={
+                                        'zoom': '1.25',
+                                        'boxShadow': '0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d'
+                                    }
+                                ),
+                                placement='left',
+                                title='问题反馈'
+                            ),
+
+                            fac.AntdPopover(
+                                fac.AntdButton(
+                                    fac.AntdIcon(icon='antd-bulb'),
+                                    shape='circle',
+                                    style={
+                                        'zoom': '1.25',
+                                        'boxShadow': '0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d'
+                                    }
+                                ),
+                                placement='left',
+                                content=[
+                                    fac.AntdText(
+                                        '微信扫码加我好友，备注【dash学习】加入学习交流群，更多灵感更快进步',
+                                        strong=True
+                                    ),
+                                    fac.AntdImage(
+                                        src=app.get_asset_url(
+                                            'imgs/feffery-添加好友二维码.jpg'),
+                                        width=250,
+                                        preview=False
+                                    )
+                                ],
+                                overlayStyle={
+                                    'width': '300px',
+                                    'height': '408px'
+                                }
+                            )
+                        ],
+                        direction='vertical'
+                    )
+                ],
                 style={
                     'position': 'fixed',
-                    'zIndex': 99999,
-                    'top': 64,
-                    'width': '100vw'
+                    'right': '100px',
+                    'bottom': '200px',
+                    'zIndex': 999
                 }
             ),
 
-            # 注入url监听
-            dcc.Location(id='url'),
+            # 注入内容区刷新辅助动画锚点
+            fac.AntdSpin(
+                html.Div(
+                    id='docs-content-spin-center',
+                    style={
+                        'position': 'fixed'  # 强制脱离文档流
+                    }
+                ),
+                indicator=fuc.FefferyExtraSpinner(
+                    type='guard',
+                    color='#1890ff',
+                    style={
+                        'position': 'fixed',
+                        'top': '50%',
+                        'left': '50%',
+                        'width': 100,
+                        'height': 100,
+                        'transform': 'translate(-50%, -50%)',
+                        'zIndex': 999
+                    }
+                )
+            ),
 
             # 页面结构
             fac.AntdRow(
                 [
                     fac.AntdCol(
-                        html.Img(
-                            src=app.get_asset_url(
-                                'imgs/flc-logo.svg'),
-                            style={
-                                'height': '50px',
-                                'padding': '0 10px',
-                                'marginTop': '7px'
+                        fuc.FefferyMotion(
+                            html.Img(
+                                src=app.get_asset_url(
+                                    'imgs/flc-logo.svg'
+                                ),
+                                style={
+                                    'height': '50px',
+                                    'padding': '0 10px',
+                                    'marginTop': '7px',
+                                    'cursor': 'pointer'
+                                }
+                            ),
+                            whileTap={
+                                'scale': 1.2
+                            },
+                            transition={
+                                'duration': 0.5,
+                                'type': 'spring'
                             }
                         ),
                     ),
@@ -63,12 +178,43 @@ app.layout = fuc.FefferyTopProgress(
                             ]
                         )
                     ),
-
+                    fac.AntdCol(
+                        fac.AntdParagraph(
+                            [
+                                fac.AntdText(
+                                    'Ctrl',
+                                    keyboard=True,
+                                    style={
+                                        'color': '#8c8c8c'
+                                    }
+                                ),
+                                fac.AntdText(
+                                    'K',
+                                    keyboard=True,
+                                    style={
+                                        'color': '#8c8c8c'
+                                    }
+                                ),
+                                fac.AntdText(
+                                    '唤出搜索面板',
+                                    style={
+                                        'color': '#8c8c8c'
+                                    }
+                                )
+                            ],
+                            style={
+                                'marginLeft': '50px',
+                                'marginTop': '21px'
+                            }
+                        ),
+                        flex='auto'
+                    ),
                     fac.AntdCol(
                         html.Div(
                             [
                                 html.A(
                                     fac.AntdImage(
+                                        id='github-entry',
                                         alt='flc源码仓库，欢迎star',
                                         src='https://img.shields.io/github/stars/CNFeffery/feffery-leaflet-components?style=social',
                                         preview=False,
@@ -109,60 +255,141 @@ app.layout = fuc.FefferyTopProgress(
                     'height': '64px',
                     'boxShadow': 'rgb(240 241 242) 0px 2px 14px',
                     'background': 'white',
-                    'marginBottom': '5px',
+                    'marginBottom': '5px'
                 }
             ),
 
             fac.AntdRow(
                 [
                     fac.AntdCol(
-                        html.Div(
-                            fac.AntdMenu(
-                                id='router-menu',
-                                menuItems=Config.side_menu_items,
-                                mode='inline',
-                                defaultSelectedKey='/LeafletMap/basic',
-                                defaultOpenKeys=[
-                                    '基础组件', '栅格类图层', '矢量类图层', '特殊图层'
+                        fac.AntdAffix(
+                            html.Div(
+                                [
+                                    fac.AntdMenu(
+                                        id='router-menu',
+                                        menuItems=Config.menuItems,
+                                        mode='inline',
+                                        defaultOpenKeys=Config.side_menu_open_keys,
+                                        style={
+                                            'height': '100%',
+                                            'paddingBottom': '50px'
+                                        }
+                                    ),
+
+                                    fac.AntdButton(
+                                        fac.AntdIcon(
+                                            id='fold-side-menu-icon',
+                                            icon='antd-arrow-left'
+                                        ),
+                                        id='fold-side-menu',
+                                        type='text',
+                                        shape='circle',
+                                        style={
+                                            'position': 'absolute',
+                                            'zIndex': 999,
+                                            'top': '10px',
+                                            'right': '-15px',
+                                            'boxShadow': '0 4px 10px 0 rgba(0,0,0,.1)',
+                                            'background': 'white'
+                                        }
+                                    )
                                 ],
+                                id='side-menu',
                                 style={
-                                    'height': '100%',
-                                    'overflow': 'hidden auto',
-                                    'paddingBottom': '50px'
+                                    'width': '325px',
+                                    'height': '100vh',
+                                    'transition': 'width 0.2s',
+                                    'borderRight': '1px solid rgb(240, 240, 240)',
+                                    'paddingRight': 20
                                 }
                             ),
-                            id='side-menu',
-                            style={
-                                'width': '300px',
-                                'height': '100%',
-                                'overflowY': 'auto'
-                            }
+                            offsetTop=0
                         ),
-                        flex='none',
-                        style={
-                            'height': '100%'
-                        }
+                        flex='none'
                     ),
 
                     fac.AntdCol(
-                        id='docs-content',
-                        flex='auto',
-                        style={
-                            'height': '100%'
-                        }
+                        [
+                            fuc.FefferyDiv(
+                                html.Div(
+                                    style={
+                                        'height': '100vh'
+                                    }
+                                ),
+                                id='docs-content',
+                                style={
+                                    'backgroundColor': 'rgb(255, 255, 255)'
+                                }
+                            ),
+
+                            # 页尾信息
+                            fac.AntdSpace(
+                                [
+                                    fac.AntdTitle(
+                                        '更多组件库',
+                                        level=4,
+                                        style={
+                                            'color': '#1d1e1e',
+                                            'fontWeight': 'normal'
+                                        }
+                                    ),
+                                    fac.AntdSpace(
+                                        [
+                                            html.A(
+                                                'fac: 网页通用组件库',
+                                                href='https://fac.feffery.tech/',
+                                                target='_blank',
+                                                className='more-components-link'
+                                            ),
+                                            html.A(
+                                                'fuc: 实用工具组件库',
+                                                href='https://fuc.feffery.tech/',
+                                                target='_blank',
+                                                className='more-components-link'
+                                            ),
+                                            html.A(
+                                                'fmc: markdown渲染组件库',
+                                                href='https://fmc.feffery.tech/',
+                                                target='_blank',
+                                                className='more-components-link'
+                                            ),
+                                            # html.A(
+                                            #     'fact: 图表可视化组件库',
+                                            #     href='https://fact.feffery.tech/',
+                                            #     target='_blank',
+                                            #     className='more-components-link'
+                                            # ),
+                                        ],
+                                        direction='vertical',
+                                        style={
+                                            'marginBottom': '75px'
+                                        }
+                                    ),
+                                    'Made with ❤ by CNFeffery'
+                                ],
+                                direction='vertical',
+                                style={
+                                    'width': '100%',
+                                    'background': '#f2f3f5',
+                                    'padding': '50px 75px',
+                                    'color': '#868e96',
+                                    'boxShadow': 'inset 0 106px 36px -116px rgb(0 0 0 / 14%)'
+                                }
+                            )
+                        ],
+                        flex='auto'
+                    ),
+
+                    fac.AntdBackTop(
+                        duration=0.5
                     )
                 ],
-                wrap=False,
-                style={
-                    'height': 'calc(100vh - 69px)'
-                }
+                wrap=False
             )
         ]
     ),
     listenPropsMode='include',
-    includeProps=[
-        'docs-content.children'
-    ],
+    includeProps=Config.include_props,
     minimum=0.33,
     speed=800,
     debug=True
@@ -171,111 +398,181 @@ app.layout = fuc.FefferyTopProgress(
 
 @app.callback(
     [Output('docs-content', 'children'),
-     Output('router-menu', 'currentKey'),
-     Output('router-menu', 'openKeys')],
-    Input('url', 'pathname'),
-    State('router-menu', 'openKeys')
+     Output('docs-content-spin-center', 'key')],
+    Input('url', 'pathname')
 )
-def router(pathname, openKeys):
+def render_docs_content(pathname):
     '''
     路由回调
     '''
 
-    if pathname in ['/what-is-flc', '/']:
-        return fac.AntdResult(status='403', title='当前页面建设中...'), '/what-is-flc', openKeys
+    # if pathname == '/what-is-flc' or pathname == '/':
+    #     return [
+    #         views.what_is_flc.docs_content,
+    #         str(uuid.uuid4())
+    #     ]
 
-    elif pathname == '/getting-started':
-        return fac.AntdResult(status='403', title='当前页面建设中...'), pathname, openKeys
+    # elif pathname == '/getting-started':
+    #     return [
+    #         views.getting_started.docs_content,
+    #         str(uuid.uuid4())
+    #     ]
 
-    elif pathname.startswith('/LeafletMap/'):
+    # 检查当前pathname是否在预设字典中
+    if pathname in Config.key2open_keys.keys():
 
-        if pathname == '/LeafletMap/basic':
-            return views.LeafletMap.basic.docs_content, pathname, ['/LeafletMap'] + openKeys
+        # 复杂内容渲染效果优化
+        time.sleep(0.5)
 
-        elif pathname == '/LeafletMap/custom-center-zoom':
-            return views.LeafletMap.custom_center_zoom.docs_content, pathname, ['/LeafletMap'] + openKeys
+        # 检查当前目标pathname中是否包含LeafletMap
+        if 'LeafletMap-' in pathname:
 
-        elif pathname == '/LeafletMap/custom-zoom-delta':
-            return views.LeafletMap.custom_zoom_delta.docs_content, pathname, ['/LeafletMap'] + openKeys
+            if pathname == '/LeafletMap-basic':
 
-        elif pathname == '/LeafletMap/edit-mode':
-            return views.LeafletMap.edit_mode.docs_content, pathname, ['/LeafletMap'] + openKeys
+                return [
+                    map_basic.docs_content,
+                    str(uuid.uuid4())
+                ]
 
-        elif pathname == '/LeafletMap/edit-mode-callback':
-            return views.LeafletMap.edit_mode_callback.docs_content, pathname, ['/LeafletMap'] + openKeys
+            elif pathname == '/LeafletMap-advanced':
 
-    elif pathname.startswith('/LeafletMapListener/'):
+                return [
+                    map_advanced.docs_content,
+                    str(uuid.uuid4())
+                ]
 
-        if pathname == '/LeafletMapListener/basic-callback':
-            return views.LeafletMapListener.basic_callback.docs_content, pathname, ['/LeafletMapListener'] + openKeys
+        try:
 
-    elif pathname.startswith('/LeafletMapAction/'):
+            return [
+                getattr(views, pathname[1:]).docs_content,
+                str(uuid.uuid4())
+            ]
 
-        if pathname == '/LeafletMapAction/basic-callback':
-            return views.LeafletMapAction.basic_callback.docs_content, pathname, ['/LeafletMapAction'] + openKeys
+        except Exception as e:
 
-        elif pathname == '/LeafletMapAction/resize':
-            return views.LeafletMapAction.resize.docs_content, pathname, ['/LeafletMapAction'] + openKeys
+            pass
 
-    elif pathname.startswith('/LeafletTileLayer/'):
+    return [
+        fac.AntdResult(
+            status='404',
+            title='您访问的页面不存在或还在建设中',
+            style={
+                'height': 'calc(100vh - 65px)'
+            }
+        ),
+        str(uuid.uuid4())
+    ]
 
-        if pathname == '/LeafletTileLayer/basic':
-            return views.LeafletTileLayer.basic_callback.docs_content, pathname, ['/LeafletTileLayer'] + openKeys
 
-    elif pathname.startswith('/LeafletCircleMarker/'):
+@app.callback(
+    [Output('router-menu', 'currentKey'),
+     Output('router-menu', 'openKeys'),
+     Output('side-menu-scroll-to-current-key', 'children')],
+    Input('url', 'pathname')
+)
+def handle_other_router_interaction(pathname):
+    '''
+    路由相关的交互效果优化
+    '''
 
-        if pathname == '/LeafletCircleMarker/basic':
-            return views.LeafletCircleMarker.basic.docs_content, pathname, ['/LeafletCircleMarker'] + openKeys
+    # if pathname == '/what-is-flc' or pathname == '/':
+    #     return [
+    #         '/what-is-flc',
+    #         dash.no_update,
+    #         None
+    #     ]
 
-    elif pathname.startswith('/LeafletPolyline/'):
+    # elif pathname == '/getting-started':
+    #     return [
+    #         '/getting-started',
+    #         dash.no_update,
+    #         None
+    #     ]
 
-        if pathname == '/LeafletPolyline/basic':
-            return views.LeafletPolyline.basic.docs_content, pathname, ['/LeafletPolyline'] + openKeys
+    # elif pathname in [
+    #     '/advanced-classname',
+    # ]:
+    #     return [
+    #         pathname,
+    #         dash.no_update,
+    #         fuc.FefferyScroll(
+    #             scrollTargetId=pathname,
+    #             **router_menu_scroll_params
+    #         )
+    #     ]
 
-    elif pathname.startswith('/LeafletRectangle/'):
+    # 检查当前pathname是否在预设字典中
+    if pathname in Config.key2open_keys.keys():
 
-        if pathname == '/LeafletRectangle/basic':
-            return views.LeafletRectangle.basic.docs_content, pathname, ['/LeafletRectangle'] + openKeys
+        return [
+            pathname,
+            Config.key2open_keys[pathname],
+            fuc.FefferyScroll(
+                scrollTargetId=pathname,
+                **router_menu_scroll_params
+            )
+        ]
 
-    elif pathname.startswith('/LeafletCircle/'):
+    return [
+        pathname,
+        dash.no_update,
+        None
+    ]
 
-        if pathname == '/LeafletCircle/basic':
-            return views.LeafletCircle.basic.docs_content, pathname, ['/LeafletCircle'] + openKeys
 
-    elif pathname.startswith('/LeafletPolygon/'):
+@app.callback(
+    Output('page-anchor-scroll-to-while-page-initial', 'children'),
+    Input('docs-content-spin-center', 'key'),
+    State('url', 'hash')
+)
+def page_anchor_scroll_to_while_page_initial(_, hash_):
 
-        if pathname == '/LeafletPolygon/basic':
-            return views.LeafletPolygon.basic.docs_content, pathname, ['/LeafletPolygon'] + openKeys
+    if _ and hash_:
 
-    elif pathname.startswith('/LeafletGeoJSON/'):
+        return fuc.FefferyScroll(
+            scrollTargetId=unquote(hash_)[1:],
+            scrollMode='target',
+            executeScroll=True,
+            offset=0
+        )
 
-        if pathname == '/LeafletGeoJSON/basic':
-            return views.LeafletGeoJSON.basic.docs_content, pathname, ['/LeafletGeoJSON'] + openKeys
-        elif pathname == '/LeafletGeoJSON/click-feature-zoom':
-            return views.LeafletGeoJSON.click_feature_zoom.docs_content, pathname, ['/LeafletGeoJSON'] + openKeys
-        elif pathname == '/LeafletGeoJSON/show-feature-tooltip':
-            return views.LeafletGeoJSON.show_feature_tooltip.docs_content, pathname, ['/LeafletGeoJSON'] + openKeys
-        elif pathname == '/LeafletGeoJSON/selectable-single':
-            return views.LeafletGeoJSON.selectable_single.docs_content, pathname, ['/LeafletGeoJSON'] + openKeys
-        elif pathname == '/LeafletGeoJSON/selectable-multiple':
-            return views.LeafletGeoJSON.selectable_multiple.docs_content, pathname, ['/LeafletGeoJSON'] + openKeys
-        elif pathname == '/LeafletGeoJSON/basic-choropleth':
-            return views.LeafletGeoJSON.basic_choropleth.docs_content, pathname, ['/LeafletGeoJSON'] + openKeys
-        elif pathname == '/LeafletGeoJSON/basic-category':
-            return views.LeafletGeoJSON.basic_category.docs_content, pathname, ['/LeafletGeoJSON'] + openKeys
 
-    elif pathname.startswith('/LeafletHeatMap/'):
+app.clientside_callback(
+    ClientsideFunction(
+        namespace='clientside',
+        function_name='handleSideMenuCollapse'
+    ),
+    [Output('side-menu', 'style'),
+     Output('fold-side-menu-icon', 'icon')],
+    Input('fold-side-menu', 'nClicks'),
+    State('side-menu', 'style')
+)
 
-        if pathname == '/LeafletHeatMap/basic':
-            return views.LeafletHeatMap.basic.docs_content, pathname, ['/LeafletHeatMap'] + openKeys
+app.clientside_callback(
+    ClientsideFunction(
+        namespace='clientside',
+        function_name='handleSidePropsCollapse'
+    ),
+    [Output('side-props', 'style'),
+     Output('fold-side-props-icon', 'icon')],
+    Input('fold-side-props', 'nClicks'),
+    Input('side-props-width', 'data'),
+    State('side-props', 'style')
+)
 
-    elif pathname.startswith('/LeafletFlowLayer/'):
 
-        if pathname == '/LeafletFlowLayer/basic':
-            return views.LeafletFlowLayer.basic.docs_content, pathname, ['/LeafletFlowLayer'] + openKeys
-
-    return fac.AntdResult(status='404', title='您访问的页面不存在！'), pathname, dash.no_update
-
+app.clientside_callback(
+    ClientsideFunction(
+        namespace='clientside',
+        function_name='handleSidePropsResize'
+    ),
+    [Output('side-props-width', 'data'),
+     Output('side-props-width-plus', 'disabled'),
+     Output('side-props-width-minus', 'disabled')],
+    [Input('side-props-width-plus', 'nClicks'),
+     Input('side-props-width-minus', 'nClicks')],
+    State('side-props-width', 'data')
+)
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=False)

@@ -1,154 +1,156 @@
-**id：** *str*型
+**id：** *string*型
 
-用于定义组件的唯一识别`id`信息
+　　用于设置*当前组件的唯一id信息*
 
----
+**key：** *string*型
 
-**data：** *dict*型
+　　对当前组件的`key`值进行更新，可实现强制重绘当前组件的效果
 
-用于定义当前GeoJSON实例对应的矢量数据
+**data：** *dict*型，必填
 
----
+　　用于*设置当前组件要渲染的GeoJSON格式数据*
 
-**mode：** *str*型，默认为`'default'`
+**mode：** *string*型，默认为`'default'`
 
-用于设置当前GeoJSON图层的绘图模式，可选的有`'default'`、`'selectable'`（选择模式）、`'choropleth'`（分层设色模式）、`'category'`（分类设色模式）
-
----
+　　用于*设置当前GeoJSON组件的功能模式*，可选的有`'default'`（默认模式）、`'selectable'`（选择模式）、`'choropleth'`（分层设色模式）、`'category'`（分类设色模式）
 
 **hoverable：** *bool*型，默认为`False`
 
-用于设置是否为当前GeoJSON实例开启要素鼠标悬浮样式区分效果
-
----
+　　用于*设置是否开启要素鼠标悬停效果*，开启后，可配合参数`hoverStyle`进行鼠标悬浮时的额外样式设定
 
 **defaultStyle：** *dict*型
 
-用于为当前GeoJSON实例中的要素设置默认的矢量样式，可用的键值对参数有：
+　　用于*设置要素的默认样式*，可用的键值对参数有：
 
-- **stroke：** *bool*型，默认为`True`，用于设置是否绘制轮廓线
-- **color：** *str*型，默认为`'#3388ff'`，用于设置轮廓线颜色
-- **weight：** *int*型，默认为`3`，用于设置轮廓线像素宽度
-- **opacity：** *float*型，默认为`1`，用于设置轮廓线透明度
-- **lineCap：** *str*型，默认为`'round'`，对应`css`中的`line-cap`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linecap)
-- **lineJoin：** *str*型，默认为`'round'`，对应`css`中的`line-join`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linejoin)
-- **dashArray：** *str*型，默认为`None`，对应`css`中的`dash-array`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)
-- **dashOffset：** *str*型，默认为`None`，对应`css`中的`dash-offset`属性，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dashoffset)
-- **fill：** *bool*型，默认为`True`，用于设置是否对当前矢量进行填充
-- **fillColor：** *str*型，默认为`'#3388ff'`，用于设置当前矢量的填充色
-- **fillOpacity：** *str*型，默认为`0.2`，用于设置当前矢量的填充透明度
-
----
+- **stroke：** *bool*型，默认为`True`，用于*设置当前要素是否显示轮廓*
+- **color：** *string*型，默认为<font style="color: #3388ff;">#3388ff</font>，用于*设置当前要素的轮廓色*
+- **weight：** *int*或*float*型，默认为`3`，用于*设置当前要素的轮廓像素宽度*
+- **opacity：** *int*或*float*型，默认为`1`，用于*设置当前要素的轮廓透明度*
+- **lineCap：** *string*型，默认为`'round'`，用于*设置当前要素轮廓线的line-cap属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linecap)
+- **lineJoin：** *string*型，默认为`'round'`，用于*设置当前要素轮廓线的line-join属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-linejoin)
+- **dashArray：** *string*型，用于*设置当前要素轮廓线的线型dash-array属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)
+- **dashOffset：** *string*型，用于*设置当前要素轮廓线的dash-offset属性*，[参考资料](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dashoffset)
+- **fill：** *bool*型，默认为`True`，用于*设置当前要素是否显示填充*
+- **fillColor：** *string*型，默认为<font style="color: #3388ff;">#3388ff</font>，用于*设置当前要素的填充色*
+- **fillOpacity：** *int*或*float*型，默认为`0.2`，用于*设置当前要素的填充透明度*
 
 **hoverStyle：** *dict*型
 
-参数`hoverable=True`时生效，用于为当前GeoJSON实例中的要素设置鼠标悬浮样式，参数格式同**defaultStyle**，默认为：
-
-```json
-{
-    'fillOpacity': 0.6
-}
-```
-
----
+　　用于*设置要素在被鼠标悬停时的额外样式*，可用的键值对参数同`defaultStyle`
 
 **selectedStyle：** *dict*型
 
-参数`mode='selectable'`时生效，用于为当前GeoJSON实例中的要素设置选择状态下的样式，参数格式同**defaultStyle**，默认为：
-
-```json
-{
-    'color': '#f5222d',
-    'fillColor': '#f5222d',
-    'fillOpacity': 0.2,
-    'opacity': 1,
-}
-```
-
----
+　　当`mode='selectable'`，用于*设置要素在被选中时的样式*，可用的键值对参数同`defaultStyle`
 
 **fitBounds：** *bool*型，默认为`True`
 
-用于为当前GeoJSON实例设置是否在初次加载时，自适应调整地图视角至恰好容纳要素整体
-
----
+　　用于*设置当前组件初始化时是否自动调整地图缩放范围以适应GeoJSON数据范围大小*
 
 **clickFeatureZoom：** *bool*型，默认为`False`
 
-用于为当前GeoJSON实例设置是否在用户鼠标点击某个要素时，自动调整地图视角至恰好容纳所点击的要素
-
----
+　　用于*设置是否允许点击要素后自动调整地图范围以适应对应要素大小*
 
 **showTooltip：** *bool*型，默认为`False`
 
-用于为当前GeoJSON实例设置，当鼠标悬浮于要素之上时，是否展示`tooltip`提示框
+　　用于*设置是否为要素开启鼠标悬停tooltip展示效果*
 
----
+**featureIdField：** *string*型，默认为`'id'`
 
-**featureIdField：** *str*型，默认为`'id'`
+　　用于*设置要素属性中作为唯一识别id的字段名*，用于在要素选择模式中监听已选中要素
 
-用于为当前GeoJSON实例设置应当作为唯一识别id字段的属性名称，配合`选择模式`等功能使用
+**featureValueField：** *string*型，默认为`'value'`
 
----
+　　用于*设置要素属性中作为数值的字段名*，用于在分层设色模式中作为色彩映射依赖值
 
-**featureValueField：** *str*型，默认为`'value'`
+**featureCategoryField：** *string*型，默认为`'category'`
 
-用于为当前GeoJSON实例设置应当作为数值字段的属性名称，配合`分层设色模式`等功能使用
+　　用于*设置要素属性中作为类别的字段名*，用于在分类设色模式中作为色彩映射依赖值
 
----
+**featureTooltipField：** *string*型，默认为`'tooltip'`
 
-**featureCategoryField：** *str*型，默认为`'category'`
+　　用于*设置要素属性中存储tooltip信息的字段名*，用于在`showTooltip=True`时作为对应要素的tooltip信息
 
-用于为当前GeoJSON实例设置应当作为类别字段的属性名称，配合`分类设色模式`等功能使用
+**selectMode：** *string*型，默认为`'single'`
 
----
-
-**featureTooltipField：** *str*型，默认为`'tooltip'`
-
-用于为当前GeoJSON实例设置应当作为`tooltip`字段的属性名称，配合`showTooltip`等参数使用
-
----
-
-**selectMode：** *str*型，默认为`'single'`
-
-参数`mode='selectable'`时生效，用于为当前GeoJSON实例设置选择功能模式，可选的有`'single'`（单选模式）、`'multiple'`（多选模式）
-
----
-
-**selectedFeatureIds：** *list*型
-
-参数`mode='selectable'`时生效，用于监听或设置当前GeoJSON实例中处于选择状态的要素`id`信息（与**featureIdField**参数相对应）
-
----
+　　当`mode='selectable'`时，用于*设置选择模式类型*，可选的有`'single'`（单选模式）、`'multiple'`（多选模式）
 
 **disableClickSelect：** *bool*型，默认为`False`
 
-参数`mode='selectable'`时生效，用于为当前GeoJSON实例设置是否允许用户点击要素改变其选中状态，譬如当你的GeoJSON实例中要素的选择状态是由其他外部组件的交互行为所决定的，就可以设置`disableClickSelect=True`从而避免用户点击地图导致已选择结果被篡改
+　　用于*设置是否禁用主动点击选择要素功能*
 
----
+**selectedFeatureIds：** *list*型
+
+　　当`mode='selectable'`时，用于*监听或设置处于选中状态下的要素唯一识别id字段数组*
 
 **featureValueToStyles：** *dict*型
 
-参数`mode='choropleth'`时生效，根据参数**featureValueField**对应的要素属性字段数值，为当前GeoJSON实例中的每个要素，配置样式映射规则，可用的键值对参数有：
+　　当`mode='choropleth'`时，用于*配置分层设色相关规则*，可用的键值对参数有：
 
-- **bins：** *list*型，传入用于定义每个分层数值区间范围，格式如`[左区间, 右区间]`
-- **styles：** *list[dict]*型，传入与参数**bins**按顺序一一对应的要素矢量样式字典，每个字典格式同参数**defaultStyle**
-- **closed：** *str*型，默认为`'left'`，用于设置区间的左右开闭情况，可选的有`'left'`（左闭）、`'right'`（右闭）
-
----
+- **bins：** *list*型，用于*为分层设色定义每段区间范围*，格式为`[左区间值, 右区间值]`
+- **styles：** `list[dict]`型，用于*设置与bins一一对应的样式参数字典*，每个样式参数字典可用的键值对参数同`defaultStyle`
+- **closed：** *string*型，默认`'left'`，用于*设置区间的闭合状态*，可选的有`'left'`（左闭）、`'right'`（右闭）
 
 **featureCategoryToStyles：** *dict*型
 
-参数`mode='category'`时生效，根据参数**featureCategoryField**对应的要素类别字段数值，为当前GeoJSON实例中的每个要素，配置样式映射规则，此参数每个键为对应的一个类别值，对应的值格式同参数**defaultStyle**
+　　当`mode='category'`时，用于*为不同分类设置对应的样式*，其中键为对应类别值，值可用的键值对参数同`defaultStyle`
 
----
+**tooltipDirection：** *string*型，默认为`'auto'`
+
+　　当`showTooltip=True`，用于*设置要素tooltip的展开方位*，可选的有`'auto'`、`'left'`、`'right'`、`'top'`、`'bottom'`、`'center'`
+
+**tooltipPermanent：** *string*型，默认为`False`
+
+　　用于*设置是否保持要素的tooltip处于展开状态而无需鼠标悬停触发*
+
+**tooltipSticky：** *bool*型，默认为`False`
+
+　　用于*设置要素tooltip在显示时是否跟随鼠标位置而移动*
+
+**tooltipClassName：** *string*型
+
+　　用于*设置要素tooltip对应的css类名*
+
+**lassoSelect：** *bool*型，默认为`False`
+
+　　当` mode='selectable'`且`selectMode='multiple'`时，用于*设置是否开启套圈选择模式*
+
+**lassoType：** *string*型，默认为`'intersect'`
+
+　　当开启套圈选择模式后，用于*设置套圈选择的判定规则类型*，可选的有`'contain'`（完全包含）、`'intersect'`（相交）
+
+**lassoResetSelectedFeatureIds：** *bool*型，默认为`False`
+
+　　当开启套圈选择模式后，用于*设置每次点击套圈选择功能按钮后是否自动清除先前的已选要素*
+
+**lassoButtonPosition：** *string*型，默认为`'topleft'`
+
+　　用于*设置套圈选择功能按钮的展示方位*，可选的有`'topleft'`、`'topright'`、`'bottomleft'`、`'bottomright'`
+
+**lassoStyle：** *dict*型
+
+　　用于*设置套圈选择对应套圈的矢量样式*，可用的键值对参数同`defaultStyle`
+
+**pointRenderMode：** *string*型，默认为`'circle-marker'`
+
+　　用于*设置针对GeoJSON数据中的点要素的渲染方式*，可选的有`'circle-marker'`（圆形标记）、`'marker'`（标记）
+
+**circleMarkerRadius：** *int*型，默认为`10`
+
+　　当`pointRenderMode='circle-marker'`时，用于*设置圆形标记的像素半径*
 
 **_clickedFeature：** *dict*型
 
-用于监听记录当前GeoJSON实例中被点击的要素相关信息
+　　用于*监听要素点击事件*，事件返回的键值对信息有：
 
----
+- **featureId：** 对应*事件发生要素的唯一识别id*
+- **feature：** 对应*事件发生要素的属性字典*
+- **timestamp：** 对应*事件发生的时间戳信息*
 
 **_hoveredFeature：** *dict*型
 
-用于监听记录当前GeoJSON实例中被鼠标悬浮的要素相关信息
+　　用于*监听要素鼠标悬停事件*，事件返回的键值对信息有：
+
+- **featureId：** 对应*事件发生要素的唯一识别id*
+- **feature：** 对应*事件发生要素的属性字典*
+- **timestamp：** 对应*事件发生的时间戳信息*
+

@@ -1,6 +1,12 @@
 class Config:
-    # 侧边菜单树状结构数据
-    side_menu_items = [
+
+    # 顶端进度条需要纳入的监听目标
+    include_props = [
+        'docs-content.children'
+    ]
+
+    # 定义侧边菜单树状结构数据
+    menuItems = [
         {
             'component': 'ItemGroup',
             'props': {
@@ -12,6 +18,7 @@ class Config:
                     'component': 'Item',
                     'props': {
                         'key': '/what-is-flc',
+                        'name': '/what-is-flc',
                         'href': '/what-is-flc',
                         'title': 'flc是什么？'
                     }
@@ -20,347 +27,386 @@ class Config:
                     'component': 'Item',
                     'props': {
                         'key': '/getting-started',
+                        'name': '/getting-started',
                         'href': '/getting-started',
                         'title': 'flc快速上手'
                     }
                 }
             ]
         },
-        *[
-            {
-                'component': 'SubMenu',
-                'props': {
-                    'key': '基础组件',
-                    'href': '基础组件',
-                    'title': '基础组件'
-                },
-                'children': [
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletMap',
-                            'title': 'LeafletMap 地图容器',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMap/basic',
-                                    'href': '/LeafletMap/basic',
-                                    'title': '基础地图容器',
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMap/custom-center-zoom',
-                                    'href': '/LeafletMap/custom-center-zoom',
-                                    'title': '设置地图中心与缩放级别',
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMap/custom-zoom-delta',
-                                    'href': '/LeafletMap/custom-zoom-delta',
-                                    'title': '自定义地图缩放粒度',
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMap/edit-mode',
-                                    'href': '/LeafletMap/edit-mode',
-                                    'title': '编辑模式',
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMap/edit-mode-callback',
-                                    'href': '/LeafletMap/edit-mode-callback',
-                                    'title': '编辑模式回调示例',
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletMapListener',
-                            'title': 'LeafletMapListener 地图事件监听',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMapListener/basic-callback',
-                                    'href': '/LeafletMapListener/basic-callback',
-                                    'title': '监听常用地图事件',
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletMapAction',
-                            'title': 'LeafletMapAction 地图动作执行',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMapAction/basic-callback',
-                                    'href': '/LeafletMapAction/basic-callback',
-                                    'title': '常用地图动作',
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletMapAction/resize',
-                                    'href': '/LeafletMapAction/resize',
-                                    'title': '容器resize后校正地图视角',
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                'component': 'SubMenu',
-                'props': {
-                    'key': '栅格类图层',
-                    'href': '栅格类图层',
-                    'title': '栅格类图层'
-                },
-                'children': [
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletTileLayer',
-                            'title': 'LeafletTileLayer 瓦片地图图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletTileLayer/basic',
-                                    'href': '/LeafletTileLayer/basic',
-                                    'title': '使用不同的瓦片底图源',
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                'component': 'SubMenu',
-                'props': {
-                    'key': '矢量类图层',
-                    'href': '矢量类图层',
-                    'title': '矢量类图层'
-                },
-                'children': [
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletCircleMarker',
-                            'title': 'LeafletCircleMarker 圆形标记图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletCircleMarker/basic',
-                                    'href': '/LeafletCircleMarker/basic',
-                                    'title': '基础圆形标记'
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletPolyline',
-                            'title': 'LeafletPolyline 折线图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletPolyline/basic',
-                                    'href': '/LeafletPolyline/basic',
-                                    'title': '基础折线'
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletRectangle',
-                            'title': 'LeafletRectangle 矩形图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletRectangle/basic',
-                                    'href': '/LeafletRectangle/basic',
-                                    'title': '基础矩形'
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletCircle',
-                            'href': '/LeafletCircle',
-                            'title': 'LeafletCircle 圆形图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletCircle/basic',
-                                    'href': '/LeafletCircle/basic',
-                                    'title': '基础圆形'
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletPolygon',
-                            'href': '/LeafletPolygon',
-                            'title': 'LeafletPolygon 多边形图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletPolygon/basic',
-                                    'href': '/LeafletPolygon/basic',
-                                    'title': '基础多边形'
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletGeoJSON',
-                            'href': '/LeafletGeoJSON',
-                            'title': 'LeafletGeoJSON GeoJSON图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletGeoJSON/basic',
-                                    'href': '/LeafletGeoJSON/basic',
-                                    'title': '基础GeoJSON'
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletGeoJSON/click-feature-zoom',
-                                    'href': '/LeafletGeoJSON/click-feature-zoom',
-                                    'title': '点击要素自适应缩放'
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletGeoJSON/show-feature-tooltip',
-                                    'href': '/LeafletGeoJSON/show-feature-tooltip',
-                                    'title': '鼠标悬浮展示信息卡片'
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletGeoJSON/selectable-single',
-                                    'href': '/LeafletGeoJSON/selectable-single',
-                                    'title': '单选模式'
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletGeoJSON/selectable-multiple',
-                                    'href': '/LeafletGeoJSON/selectable-multiple',
-                                    'title': '多选模式'
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletGeoJSON/basic-choropleth',
-                                    'href': '/LeafletGeoJSON/basic-choropleth',
-                                    'title': '基础分层设色'
-                                }
-                            },
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletGeoJSON/basic-category',
-                                    'href': '/LeafletGeoJSON/basic-category',
-                                    'title': '基础分类设色'
-                                }
-                            }
-                        ]
-                    },
-                ]
-            },
-            {
-                'component': 'SubMenu',
-                'props': {
-                    'key': '特殊图层',
-                    'href': '特殊图层',
-                    'title': '特殊图层'
-                },
-                'children': [
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletHeatMap',
-                            'title': 'LeafletHeatMap 热力图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletHeatMap/basic',
-                                    'href': '/LeafletHeatMap/basic',
-                                    'title': '基础热力图层'
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        'component': 'SubMenu',
-                        'props': {
-                            'key': '/LeafletFlowLayer',
-                            'title': 'LeafletFlowLayer 流线图层',
-                        },
-                        'children': [
-                            {
-                                'component': 'Item',
-                                'props': {
-                                    'key': '/LeafletFlowLayer/basic',
-                                    'href': '/LeafletFlowLayer/basic',
-                                    'title': '基础流线图层'
-                                }
-                            }
-                        ]
-                    }
-                ]
+        {
+            'component': 'Divider',
+            'props': {
+                'dashed': True
             }
-        ]
+        },
+        {
+            'component': 'ItemGroup',
+            'props': {
+                'key': '组件介绍',
+                'title': '组件介绍'
+            },
+            'children': [
+                {
+                    'component': 'SubMenu',
+                    'props': {
+                        'key': '基础组件',
+                        'title': '基础组件'
+                    },
+                    'children': [
+                        {
+                            'component': 'SubMenu',
+                            'props': {
+                                'key': '基础组件/地图容器',
+                                'title': 'LeafletMap 地图容器'
+                            },
+                            'children': [
+                                {
+                                    'component': 'Item',
+                                    'props': {
+                                        'key': '/LeafletMap-basic',
+                                        'name': '/LeafletMap-basic',
+                                        'title': '基础功能',
+                                        'href': '/LeafletMap-basic'
+                                    }
+                                },
+                                {
+                                    'component': 'Item',
+                                    'props': {
+                                        'key': '/LeafletMap-advanced',
+                                        'name': '/LeafletMap-advanced',
+                                        'title': '进阶功能',
+                                        'href': '/LeafletMap-advanced'
+                                    }
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    'component': 'SubMenu',
+                    'props': {
+                        'key': '底图',
+                        'title': '底图'
+                    },
+                    'children': [
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletTileLayer',
+                                'name': '/LeafletTileLayer',
+                                'title': 'LeafletTileLayer 瓦片底图',
+                                'href': '/LeafletTileLayer'
+                            }
+                        },
+                    ]
+                },
+                {
+                    'component': 'SubMenu',
+                    'props': {
+                        'key': '矢量',
+                        'title': '矢量'
+                    },
+                    'children': [
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletCircleMarker',
+                                'name': '/LeafletCircleMarker',
+                                'title': 'LeafletCircleMarker 圆形标记',
+                                'href': '/LeafletCircleMarker'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletMarker',
+                                'name': '/LeafletMarker',
+                                'title': 'LeafletMarker 标记',
+                                'href': '/LeafletMarker'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletPolyline',
+                                'name': '/LeafletPolyline',
+                                'title': 'LeafletPolyline 折线',
+                                'href': '/LeafletPolyline'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletRectangle',
+                                'name': '/LeafletRectangle',
+                                'title': 'LeafletRectangle 矩形',
+                                'href': '/LeafletRectangle'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletCircle',
+                                'name': '/LeafletCircle',
+                                'title': 'LeafletCircle 圆形',
+                                'href': '/LeafletCircle'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletPolygon',
+                                'name': '/LeafletPolygon',
+                                'title': 'LeafletPolygon 多边形',
+                                'href': '/LeafletPolygon'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletGeoJSON',
+                                'name': '/LeafletGeoJSON',
+                                'title': 'LeafletGeoJSON GeoJSON要素',
+                                'href': '/LeafletGeoJSON'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletVectorTile',
+                                'name': '/LeafletVectorTile',
+                                'title': 'LeafletVectorTile 矢量切片',
+                                'href': '/LeafletVectorTile'
+                            }
+                        },
+                    ]
+                },
+                {
+                    'component': 'SubMenu',
+                    'props': {
+                        'key': '容器',
+                        'title': '容器'
+                    },
+                    'children': [
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletFeatureGroup',
+                                'name': '/LeafletFeatureGroup',
+                                'title': 'LeafletFeatureGroup 要素组',
+                                'href': '/LeafletFeatureGroup'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletLayerGroup',
+                                'name': '/LeafletLayerGroup',
+                                'title': 'LeafletLayerGroup 图层组',
+                                'href': '/LeafletLayerGroup'
+                            }
+                        },
+                    ]
+                },
+                {
+                    'component': 'SubMenu',
+                    'props': {
+                        'key': '特殊图层',
+                        'title': '特殊图层'
+                    },
+                    'children': [
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletAntPath',
+                                'name': '/LeafletAntPath',
+                                'title': 'LeafletAntPath 蚂蚁路径',
+                                'href': '/LeafletAntPath'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletFlowLayer',
+                                'name': '/LeafletFlowLayer',
+                                'title': 'LeafletFlowLayer 流线图',
+                                'href': '/LeafletFlowLayer'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletHeatMap',
+                                'name': '/LeafletHeatMap',
+                                'title': 'LeafletHeatMap 热力图',
+                                'href': '/LeafletHeatMap'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletStaticHeatMap',
+                                'name': '/LeafletStaticHeatMap',
+                                'title': 'LeafletStaticHeatMap 静态热力图',
+                                'href': '/LeafletStaticHeatMap'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletSuperCluster',
+                                'name': '/LeafletSuperCluster',
+                                'title': 'LeafletSuperCluster 巨量标记聚类',
+                                'href': '/LeafletSuperCluster'
+                            }
+                        },
+                    ]
+                },
+                {
+                    'component': 'SubMenu',
+                    'props': {
+                        'key': '特殊功能',
+                        'title': '特殊功能'
+                    },
+                    'children': [
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletExport',
+                                'name': '/LeafletExport',
+                                'title': 'LeafletExport 图片导出',
+                                'href': '/LeafletExport'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletFullscreenControl',
+                                'name': '/LeafletFullscreenControl',
+                                'title': 'LeafletFullscreenControl 全屏化',
+                                'href': '/LeafletFullscreenControl'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletMapAction',
+                                'name': '/LeafletMapAction',
+                                'title': 'LeafletMapAction 地图动作执行',
+                                'href': '/LeafletMapAction'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletMapListener',
+                                'name': '/LeafletMapListener',
+                                'title': 'LeafletMapListener 地图事件监听',
+                                'href': '/LeafletMapListener'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletMiniMap',
+                                'name': '/LeafletMiniMap',
+                                'title': 'LeafletMiniMap 迷你地图',
+                                'href': '/LeafletMiniMap'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletTileSelect',
+                                'name': '/LeafletTileSelect',
+                                'title': 'LeafletTileSelect 底图选择器',
+                                'href': '/LeafletTileSelect'
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        # {
+        #     'component': 'Divider',
+        #     'props': {
+        #         'dashed': True
+        #     }
+        # },
+        # {
+        #     'component': 'ItemGroup',
+        #     'props': {
+        #         'key': '进阶使用',
+        #         'title': '进阶使用'
+        #     },
+        #     'children': [
+        #         {
+        #             'component': 'Item',
+        #             'props': {
+        #                 'key': '/advanced-classname',
+        #                 'name': '/advanced-classname',
+        #                 'title': '进阶className的使用',
+        #                 'href': '/advanced-classname'
+        #             }
+        #         }
+        #     ]
+        # },
+        # {
+        #     'component': 'ItemGroup',
+        #     'props': {
+        #         'key': '更新日志',
+        #         'title': '更新日志'
+        #     },
+        #     'children': [
+        #         {
+        #             'component': 'SubMenu',
+        #             'props': {
+        #                 'key': 'v0.1.x',
+        #                 'title': 'v0.1.x'
+        #             },
+        #             'children': [
+        #                 {
+        #                     'component': 'Item',
+        #                     'props': {
+        #                         'key': '/change-log-v0.1.0',
+        #                         'title': 'v0.1.0',
+        #                         'href': '/change-log-v0.1.0'
+        #                     }
+        #                 }
+        #             ]
+        #         }
+        #     ]
+        # }
+    ]
+
+    # 定义位于折叠菜单中的菜单项默认需展开菜单key值列表
+    key2open_keys = {
+        '/LeafletMap-basic': ['基础组件', '基础组件/地图容器'],
+        '/LeafletMap-advanced': ['基础组件', '基础组件/地图容器'],
+        '/LeafletTileLayer': ['底图'],
+        '/LeafletCircleMarker': ['矢量'],
+        '/LeafletMarker': ['矢量'],
+        '/LeafletPolyline': ['矢量'],
+        '/LeafletRectangle': ['矢量'],
+        '/LeafletCircle': ['矢量'],
+        '/LeafletPolygon': ['矢量'],
+        '/LeafletGeoJSON': ['矢量'],
+        '/LeafletFeatureGroup': ['容器'],
+        '/LeafletLayerGroup': ['容器'],
+        '/LeafletAntPath': ['特殊图层'],
+        '/LeafletFlowLayer': ['特殊图层'],
+        '/LeafletHeatMap': ['特殊图层'],
+        '/LeafletStaticHeatMap': ['特殊图层'],
+        '/LeafletSuperCluster': ['特殊图层'],
+        '/LeafletExport': ['特殊功能'],
+        '/LeafletFullscreenControl': ['特殊功能'],
+        '/LeafletMapAction': ['特殊功能'],
+        '/LeafletMapListener': ['特殊功能'],
+        '/LeafletMiniMap': ['特殊功能'],
+        '/LeafletTileSelect': ['特殊功能'],
+    }
+
+    # 注入侧边菜单栏默认展开子菜单
+    side_menu_open_keys = [
     ]
