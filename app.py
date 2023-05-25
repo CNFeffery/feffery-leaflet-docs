@@ -48,7 +48,11 @@ app.layout = fuc.FefferyTopProgress(
                 placeholder='输入你想要搜索的组件...',
                 data=generate_shortcut_panel_data(
                     Config.menuItems
-                )
+                ),
+                panelStyles={
+                    'zIndex': 999,
+                    'accentColor': '#2696ff'
+                }
             ),
 
             # 注入快捷添加好友悬浮卡片
@@ -575,4 +579,4 @@ app.clientside_callback(
 )
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
