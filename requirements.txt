@@ -1,6 +1,6 @@
 dash==2.9.3
 feffery_antd_components==0.2.8
-feffery_leaflet_components==0.0.1a10
+feffery_leaflet_components==0.0.1a11
 feffery_markdown_components==0.2.10
 feffery_utils_components==0.1.28
 Requests==2.31.0
