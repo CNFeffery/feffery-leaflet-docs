@@ -177,7 +177,36 @@ class Config:
                                 'key': '/LeafletVectorTile',
                                 'name': '/LeafletVectorTile',
                                 'title': 'LeafletVectorTile 矢量切片',
-                                'href': '/LeafletVectorTile'
+                                'href': '/LeafletVectorTile',
+                                'disabled': True
+                            }
+                        },
+                    ]
+                },
+                {
+                    'component': 'SubMenu',
+                    'props': {
+                        'key': '附加内容',
+                        'title': '附加内容'
+                    },
+                    'children': [
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletTooltip',
+                                'name': '/LeafletTooltip',
+                                'title': 'LeafletTooltip 提示框',
+                                'href': '/LeafletTooltip'
+                            }
+                        },
+                        {
+                            'component': 'Item',
+                            'props': {
+                                'key': '/LeafletPopup',
+                                'name': '/LeafletPopup',
+                                'title': 'LeafletPopup 弹出层',
+                                'href': '/LeafletPopup',
+                                'disabled': True
                             }
                         },
                     ]
@@ -195,7 +224,8 @@ class Config:
                                 'key': '/LeafletFeatureGroup',
                                 'name': '/LeafletFeatureGroup',
                                 'title': 'LeafletFeatureGroup 要素组',
-                                'href': '/LeafletFeatureGroup'
+                                'href': '/LeafletFeatureGroup',
+                                'disabled': True
                             }
                         },
                         {
@@ -204,7 +234,8 @@ class Config:
                                 'key': '/LeafletLayerGroup',
                                 'name': '/LeafletLayerGroup',
                                 'title': 'LeafletLayerGroup 图层组',
-                                'href': '/LeafletLayerGroup'
+                                'href': '/LeafletLayerGroup',
+                                'disabled': True
                             }
                         },
                     ]
@@ -222,7 +253,8 @@ class Config:
                                 'key': '/LeafletAntPath',
                                 'name': '/LeafletAntPath',
                                 'title': 'LeafletAntPath 蚂蚁路径',
-                                'href': '/LeafletAntPath'
+                                'href': '/LeafletAntPath',
+                                'disabled': True
                             }
                         },
                         {
@@ -231,7 +263,8 @@ class Config:
                                 'key': '/LeafletFlowLayer',
                                 'name': '/LeafletFlowLayer',
                                 'title': 'LeafletFlowLayer 流线图',
-                                'href': '/LeafletFlowLayer'
+                                'href': '/LeafletFlowLayer',
+                                'disabled': True
                             }
                         },
                         {
@@ -240,7 +273,8 @@ class Config:
                                 'key': '/LeafletHeatMap',
                                 'name': '/LeafletHeatMap',
                                 'title': 'LeafletHeatMap 热力图',
-                                'href': '/LeafletHeatMap'
+                                'href': '/LeafletHeatMap',
+                                'disabled': True
                             }
                         },
                         {
@@ -249,7 +283,8 @@ class Config:
                                 'key': '/LeafletStaticHeatMap',
                                 'name': '/LeafletStaticHeatMap',
                                 'title': 'LeafletStaticHeatMap 静态热力图',
-                                'href': '/LeafletStaticHeatMap'
+                                'href': '/LeafletStaticHeatMap',
+                                'disabled': True
                             }
                         },
                         {
@@ -258,7 +293,8 @@ class Config:
                                 'key': '/LeafletSuperCluster',
                                 'name': '/LeafletSuperCluster',
                                 'title': 'LeafletSuperCluster 巨量标记聚类',
-                                'href': '/LeafletSuperCluster'
+                                'href': '/LeafletSuperCluster',
+                                'disabled': True
                             }
                         },
                     ]
@@ -276,7 +312,8 @@ class Config:
                                 'key': '/LeafletExport',
                                 'name': '/LeafletExport',
                                 'title': 'LeafletExport 图片导出',
-                                'href': '/LeafletExport'
+                                'href': '/LeafletExport',
+                                'disabled': True
                             }
                         },
                         {
@@ -285,7 +322,8 @@ class Config:
                                 'key': '/LeafletFullscreenControl',
                                 'name': '/LeafletFullscreenControl',
                                 'title': 'LeafletFullscreenControl 全屏化',
-                                'href': '/LeafletFullscreenControl'
+                                'href': '/LeafletFullscreenControl',
+                                'disabled': True
                             }
                         },
                         {
@@ -294,7 +332,8 @@ class Config:
                                 'key': '/LeafletMapAction',
                                 'name': '/LeafletMapAction',
                                 'title': 'LeafletMapAction 地图动作执行',
-                                'href': '/LeafletMapAction'
+                                'href': '/LeafletMapAction',
+                                'disabled': True
                             }
                         },
                         {
@@ -303,7 +342,8 @@ class Config:
                                 'key': '/LeafletMapListener',
                                 'name': '/LeafletMapListener',
                                 'title': 'LeafletMapListener 地图事件监听',
-                                'href': '/LeafletMapListener'
+                                'href': '/LeafletMapListener',
+                                'disabled': True
                             }
                         },
                         {
@@ -311,8 +351,9 @@ class Config:
                             'props': {
                                 'key': '/LeafletMiniMap',
                                 'name': '/LeafletMiniMap',
-                                'title': 'LeafletMiniMap 迷你地图',
-                                'href': '/LeafletMiniMap'
+                                'title': 'LeafletMiniMap 缩略地图',
+                                'href': '/LeafletMiniMap',
+                                'disabled': True
                             }
                         },
                         {
@@ -321,7 +362,8 @@ class Config:
                                 'key': '/LeafletTileSelect',
                                 'name': '/LeafletTileSelect',
                                 'title': 'LeafletTileSelect 底图选择器',
-                                'href': '/LeafletTileSelect'
+                                'href': '/LeafletTileSelect',
+                                'disabled': True
                             }
                         }
                     ]
@@ -392,6 +434,8 @@ class Config:
         '/LeafletCircle': ['矢量'],
         '/LeafletPolygon': ['矢量'],
         '/LeafletGeoJSON': ['矢量'],
+        '/LeafletTooltip': ['附加内容'],
+        '/LeafletPopup': ['附加内容'],
         '/LeafletFeatureGroup': ['容器'],
         '/LeafletLayerGroup': ['容器'],
         '/LeafletAntPath': ['特殊图层'],

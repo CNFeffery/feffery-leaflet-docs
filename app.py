@@ -50,7 +50,7 @@ app.layout = fuc.FefferyTopProgress(
                     Config.menuItems
                 ),
                 panelStyles={
-                    'zIndex': 999,
+                    'zIndex': 99999,
                     'accentColor': '#2696ff'
                 }
             ),

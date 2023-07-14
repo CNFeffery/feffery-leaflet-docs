@@ -10,5 +10,6 @@ from . import (
     LeafletRectangle,
     LeafletCircle,
     LeafletPolygon,
-    LeafletGeoJSON
+    LeafletGeoJSON,
+    LeafletTooltip
 )
