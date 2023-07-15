@@ -205,8 +205,7 @@ class Config:
                                 'key': '/LeafletPopup',
                                 'name': '/LeafletPopup',
                                 'title': 'LeafletPopup 弹出层',
-                                'href': '/LeafletPopup',
-                                'disabled': True
+                                'href': '/LeafletPopup'
                             }
                         },
                     ]
