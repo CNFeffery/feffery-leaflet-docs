@@ -223,8 +223,7 @@ class Config:
                                 'key': '/LeafletFeatureGroup',
                                 'name': '/LeafletFeatureGroup',
                                 'title': 'LeafletFeatureGroup 要素组',
-                                'href': '/LeafletFeatureGroup',
-                                'disabled': True
+                                'href': '/LeafletFeatureGroup'
                             }
                         },
                         {

@@ -12,5 +12,6 @@ from . import (
     LeafletPolygon,
     LeafletGeoJSON,
     LeafletTooltip,
-    LeafletPopup
+    LeafletPopup,
+    LeafletFeatureGroup
 )
