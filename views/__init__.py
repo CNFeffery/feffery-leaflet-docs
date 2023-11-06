@@ -13,5 +13,6 @@ from . import (
     LeafletGeoJSON,
     LeafletTooltip,
     LeafletPopup,
-    LeafletFeatureGroup
+    LeafletFeatureGroup,
+    LeafletHeatMap
 )

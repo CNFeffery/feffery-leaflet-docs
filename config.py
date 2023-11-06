@@ -271,8 +271,7 @@ class Config:
                                 'key': '/LeafletHeatMap',
                                 'name': '/LeafletHeatMap',
                                 'title': 'LeafletHeatMap 热力图',
-                                'href': '/LeafletHeatMap',
-                                'disabled': True
+                                'href': '/LeafletHeatMap'
                             }
                         },
                         {
