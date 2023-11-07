@@ -14,5 +14,6 @@ from . import (
     LeafletTooltip,
     LeafletPopup,
     LeafletFeatureGroup,
-    LeafletHeatMap
+    LeafletHeatMap,
+    LeafletStaticHeatMap
 )

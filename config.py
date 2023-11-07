@@ -280,8 +280,7 @@ class Config:
                                 'key': '/LeafletStaticHeatMap',
                                 'name': '/LeafletStaticHeatMap',
                                 'title': 'LeafletStaticHeatMap 静态热力图',
-                                'href': '/LeafletStaticHeatMap',
-                                'disabled': True
+                                'href': '/LeafletStaticHeatMap'
                             }
                         },
                         {
