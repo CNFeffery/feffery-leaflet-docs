@@ -232,6 +232,7 @@ flc.LeafletMap(
             component_name='LeafletHeatMap'
         )
     ],
+    id='heat-map-container',
     style={
         'display': 'flex'
     }

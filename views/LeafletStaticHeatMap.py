@@ -168,6 +168,7 @@ flc.LeafletMap(
             component_name='LeafletStaticHeatMap'
         )
     ],
+    id='static-heat-map-container',
     style={
         'display': 'flex'
     }

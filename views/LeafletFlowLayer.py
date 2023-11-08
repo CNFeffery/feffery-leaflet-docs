@@ -880,6 +880,7 @@ flc.LeafletMap(
             component_name='LeafletFlowLayer'
         )
     ],
+    id='flow-layer-container',
     style={
         'display': 'flex'
     }
