@@ -261,8 +261,7 @@ class Config:
                                 'key': '/LeafletFlowLayer',
                                 'name': '/LeafletFlowLayer',
                                 'title': 'LeafletFlowLayer 流线图',
-                                'href': '/LeafletFlowLayer',
-                                'disabled': True
+                                'href': '/LeafletFlowLayer'
                             }
                         },
                         {

@@ -15,5 +15,6 @@ from . import (
     LeafletPopup,
     LeafletFeatureGroup,
     LeafletHeatMap,
-    LeafletStaticHeatMap
+    LeafletStaticHeatMap,
+    LeafletFlowLayer
 )
